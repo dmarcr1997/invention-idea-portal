@@ -2,6 +2,8 @@ import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
 import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
+import createIcon from './assets/wrench.png';
+import heartIcon from './assets/heart.png';
 import './App.css';
 import kp from './keypair.json'
 import { Buffer } from "buffer";
@@ -129,6 +131,11 @@ const App = () => {
             {gifList.map((item, index) => (
               <div className="gif-item" key={index}>
                 <img src={item.gifLink} />
+                <p className='creator-text'>Creator: {item.userAddress.toString()}</p>
+                <div className="action-buttons">
+                  <img className='icon' src={createIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
+                  <img className='icon no-heart' src={heartIcon} onClick={() => alert('Coming Soon...')} />
+                </div>
               </div>
             ))}
           </div>
