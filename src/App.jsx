@@ -106,6 +106,10 @@ const App = () => {
     </button>
   );
 
+  const shortenAddress = (str) => {
+    return str.substring(0, 6) + '...' + str.substring(str.length - 4);
+  };
+  
   const renderConnectedContainer = () => {
     if(gifList === null){
       return (
@@ -131,7 +135,7 @@ const App = () => {
             {gifList.map((item, index) => (
               <div className="gif-item" key={index}>
                 <img src={item.gifLink} />
-                <p className='creator-text'>Creator: {item.userAddress.toString()}</p>
+                <p className='creator-text'>Creator: {shortenAddress(item.userAddress.toString())}</p>
                 <div className="action-buttons">
                   <img className='icon' src={createIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
                   <img className='icon no-heart' src={heartIcon} onClick={() => alert('Coming Soon...')} />
