@@ -15,7 +15,7 @@ const arr = Object.values(kp._keypair.secretKey)
 const secret = new Uint8Array(arr)
 const baseAccount = web3.Keypair.fromSecretKey(secret)
 
-const programID = new PublicKey('CB6N5rgXQvH6BbhDfzgdeTTsWqRi7fqamxSfXhHRBvHe');
+const programID = new PublicKey('AkiPdGyEFjnxupcgJm5gx88AEeT5pHgFbfxqchH6r2rK');
 
 const network = clusterApiUrl('devnet');
 
@@ -93,10 +93,49 @@ const App = () => {
   
       await getGifList();
     } catch (error) {
+      console.log("Error liking GIF:", error)
+    }
+  };
+
+  const likeGif = async (gifLink) => {
+    console.log('Liking Gif:', gifLink);
+    try {
+      const provider = getProvider()
+      const program = await getProgram(); 
+  
+      await program.rpc.addLike(gifLink, {
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+        },
+      });
+      console.log("GIF successfully liked", gifLink);
+  
+      await getGifList();
+    } catch (error) {
       console.log("Error sending GIF:", error)
     }
   };
 
+  const dislikeGif = async (gifLink) => {
+    console.log('Disliking Gif:', gifLink);
+    try {
+      const provider = getProvider()
+      const program = await getProgram(); 
+  
+      await program.rpc.removeLike(gifLink, {
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+        },
+      });
+      console.log("GIF successfully disliked", gifLink);
+  
+      await getGifList();
+    } catch (error) {
+      console.log("Error disliking GIF:", error)
+    }
+  };
+
+  
   const renderNotConnectedContainer = () => (
     <button
       className="cta-button connect-wallet-button"
@@ -134,9 +173,10 @@ const App = () => {
           <div className="gif-grid">
             {gifList.map((item, index) => (
               <div className="gif-item" key={index}>
-                <img src={item.gifLink} />
                 <p className='creator-text'>Creator: {shortenAddress(item.userAddress.toString())}</p>
+                <img src={item.gifLink} />
                 <div className="action-buttons">
+                  <p>Likes: {item.likes}</p>
                   <img className='icon' src={createIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
                   <img className='icon no-heart' src={heartIcon} onClick={() => alert('Coming Soon...')} />
                 </div>
