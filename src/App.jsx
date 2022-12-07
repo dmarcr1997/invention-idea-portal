@@ -3,6 +3,8 @@ import { Program, AnchorProvider, web3 } from '@project-serum/anchor';
 import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import createIcon from './assets/wrench.png';
+import likeIconEmpty from './assets/like.png';
+import likeIconFilled from './assets/likeFilled.png'
 import heartIcon from './assets/heart.png';
 import './App.css';
 import kp from './keypair.json'
@@ -36,6 +38,8 @@ const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [gifList, setGifList] = useState([]);
+  const [likedGifs, setLikedGifs] = useState([]);
+  const [tipOpen, setTipOpen] = useState(false);
   
   const checkIfWalletIsConnected = async () => {
     if (window?.solana?.isPhantom) {
@@ -97,6 +101,17 @@ const App = () => {
     }
   };
 
+  const hanleLikeGifButton = async (gifLink) => {
+    if(likedGifs.find(link => link === gifLink)){
+      const newLikedGifs = likedGifs.filter(link => link !== gifLink);
+      setLikedGifs(newLikedGifs);
+      dislikeGif(gifLink);
+    } else {
+      setLikedGifs(liked => [...liked, gifLink]);
+      likeGif(gifLink);
+    }
+  };
+
   const likeGif = async (gifLink) => {
     console.log('Liking Gif:', gifLink);
     try {
@@ -114,7 +129,7 @@ const App = () => {
     } catch (error) {
       console.log("Error sending GIF:", error)
     }
-  };
+  }
 
   const dislikeGif = async (gifLink) => {
     console.log('Disliking Gif:', gifLink);
@@ -135,6 +150,13 @@ const App = () => {
     }
   };
 
+  const whichLikeImage = (gifLink) => {
+    return likedGifs.find(link => link === gifLink) ? likeIconFilled : likeIconEmpty;
+  }
+
+  const sendTip = (amount) => {
+    
+  }
   
   const renderNotConnectedContainer = () => (
     <button
@@ -176,9 +198,10 @@ const App = () => {
                 <p className='creator-text'>Creator: {shortenAddress(item.userAddress.toString())}</p>
                 <img src={item.gifLink} />
                 <div className="action-buttons">
-                  <p>Likes: {item.likes}</p>
+                  <img className='heart' src={heartIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
                   <img className='icon' src={createIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
-                  <img className='icon no-heart' src={heartIcon} onClick={() => alert('Coming Soon...')} />
+                  <img className='icon' src={whichLikeImage(item.gifLink)} onClick={() => hanleLikeGifButton(item.gifLink)}/>
+                  <div class='item'>Likes: {item.likes}</div>
                 </div>
               </div>
             ))}

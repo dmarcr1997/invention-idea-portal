@@ -132,10 +132,10 @@
 }
 
 img.icon {
-    width: 3%;
-    height: 3%;
+    width: 10%;
+    height: 10%;
     background: -webkit-linear-gradient(left, #4e44ce, #35aee2);
-    padding: 1%;
+    padding: 3%;
     margin: 0px 5px;
 }
 
@@ -147,11 +147,7 @@ img.no-heart {
   background: -webkit-linear-gradient(left, white, grey);
 }
 
-img.heart:hover{
-  background: -webkit-linear-gradient(left, white, grey);
-  animation: effect 0.4s infinite;
-}
-img.no-heart:hover{
+img.icon:hover{
   background: -webkit-linear-gradient(left, pink, orangered);
   animation: effect 0.4s infinite;
 }
@@ -188,6 +184,16 @@ p.creator-text {
             transform: translateX(0px) rotate(0deg);
         }
     }
+
 div.action-buttons {
- 
+  background: -webkit-linear-gradient(left, #C0C0C0, #696969);
+  background-color: ;
+  padding: 0.5%;
+  width: 20%;
+  height: 20%;
+  display: inline-block;
+  margin-left: 40%;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  color:white;
 }
