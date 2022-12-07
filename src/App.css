@@ -3,8 +3,12 @@
   background-image: url('https://images.unsplash.com/photo-1558051815-0f18e64e6280?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80');
   background-repeat: no-repeat;
   background-size: cover;
-  overflow: hidden;
+  overflow-y: scroll;
   text-align: center;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .container {
@@ -71,7 +75,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  margin-top: 5%;
   width: 100%;
   bottom: 0;
   left: 0;
@@ -140,11 +144,7 @@ img.icon {
 }
 
 img.heart {
-  background: -webkit-linear-gradient(left, pink, orangered);
-}
-
-img.no-heart {
-  background: -webkit-linear-gradient(left, white, grey);
+   background: -webkit-linear-gradient(left, white, grey);
 }
 
 img.icon:hover{
@@ -152,38 +152,42 @@ img.icon:hover{
   animation: effect 0.4s infinite;
 }
 
+img.like {
+  background: -webkit-linear-gradient(left, white, grey);
+}
+
 p.creator-text {
   font-size: medium;
   color:white;
-  margin-top: 10px;
+  margin: 0px 5px;
 }
 
   
-    @keyframes effect {
-        0% {
-            transform: translateX(0px) rotate(0deg);
-        }
-  
-        20% {
-            transform: translateX(-4px) rotate(-4deg);
-        }
-  
-        40% {
-            transform: translateX(-2px) rotate(-2deg);
-        }
-  
-        60% {
-            transform: translateX(4px) rotate(4deg);
-        }
-  
-        80% {
-            transform: translateX(2px) rotate(2deg);
-        }
-  
-        100% {
-            transform: translateX(0px) rotate(0deg);
-        }
+@keyframes effect {
+    0% {
+        transform: translateX(0px) rotate(0deg);
     }
+
+    20% {
+        transform: translateX(-4px) rotate(-4deg);
+    }
+
+    40% {
+        transform: translateX(-2px) rotate(-2deg);
+    }
+
+    60% {
+        transform: translateX(4px) rotate(4deg);
+    }
+
+    80% {
+        transform: translateX(2px) rotate(2deg);
+    }
+
+    100% {
+        transform: translateX(0px) rotate(0deg);
+    }
+}
 
 div.action-buttons {
   background: -webkit-linear-gradient(left, #C0C0C0, #696969);
@@ -191,9 +195,8 @@ div.action-buttons {
   padding: 0.5%;
   width: 20%;
   height: 20%;
-  display: inline-block;
   margin-left: 40%;
-  margin-top: 1rem;
   border-radius: 1rem;
   color:white;
+  margin-top: 2%;
 }

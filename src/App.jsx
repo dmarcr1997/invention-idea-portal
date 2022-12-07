@@ -39,7 +39,6 @@ const App = () => {
   const [inputValue, setInputValue] = useState('');
   const [gifList, setGifList] = useState([]);
   const [likedGifs, setLikedGifs] = useState([]);
-  const [tipOpen, setTipOpen] = useState(false);
   
   const checkIfWalletIsConnected = async () => {
     if (window?.solana?.isPhantom) {
@@ -154,10 +153,10 @@ const App = () => {
     return likedGifs.find(link => link === gifLink) ? likeIconFilled : likeIconEmpty;
   }
 
-  const sendTip = (amount) => {
-    
+  const sendTip = () => {
+    alert('Coming soon!!\nSending Tip');
   }
-  
+
   const renderNotConnectedContainer = () => (
     <button
       className="cta-button connect-wallet-button"
@@ -198,10 +197,10 @@ const App = () => {
                 <p className='creator-text'>Creator: {shortenAddress(item.userAddress.toString())}</p>
                 <img src={item.gifLink} />
                 <div className="action-buttons">
-                  <img className='heart' src={heartIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
+                  <img className='icon heart' src={heartIcon} onClick={() => sendTip()}/>
                   <img className='icon' src={createIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
-                  <img className='icon' src={whichLikeImage(item.gifLink)} onClick={() => hanleLikeGifButton(item.gifLink)}/>
-                  <div class='item'>Likes: {item.likes}</div>
+                  <img className='icon like' src={whichLikeImage(item.gifLink)} onClick={() => hanleLikeGifButton(item.gifLink)}/>
+                  <div>Likes: {item.likes}</div>
                 </div>
               </div>
             ))}
