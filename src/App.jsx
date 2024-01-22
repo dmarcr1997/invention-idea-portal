@@ -195,7 +195,10 @@ const App = () => {
             {gifList.map((item, index) => (
               <div className="gif-item" key={index}>
                 <p className='creator-text'>Creator: {shortenAddress(item.userAddress.toString())}</p>
-                <img src={item.gifLink} />
+                <img src={item.gifLink} onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src="https://media.giphy.com/media/YyKPbc5OOTSQE/giphy.gif";
+                }} />
                 <div className="action-buttons">
                   <img className='icon heart' src={heartIcon} onClick={() => sendTip()}/>
                   <img className='icon' src={createIcon} onClick={() => alert(`Added by: ${item.userAddress.toString()}`)}/>
